@@ -48,8 +48,9 @@ export function TypewriterText({ text, className }: TypewriterTextProps) {
       {displayed}
       <span
         aria-hidden="true"
+        data-typewriter-cursor
         className={`ml-1 inline-block w-[0.08em] bg-current align-[-0.08em] ${
-          done ? "opacity-70" : "animate-blink"
+          done ? "typewriter-cursor-done" : "animate-blink"
         }`}
       >
         &nbsp;

@@ -3,9 +3,9 @@ import { projects } from "../data/projects";
 
 export function ProjectsSection() {
   return (
-    <section id="projetos" className="px-5 py-20 md:px-8 md:py-28">
+    <section id="projetos" className="px-5 pb-20 pt-28 md:px-8 md:pb-28 md:pt-32">
       <div className="mx-auto max-w-[1240px]">
-        <div className="mb-6 flex flex-col justify-between gap-5 md:mb-10 md:flex-row md:items-end">
+        <div className="mb-10 flex flex-col justify-between gap-5 md:mb-16 md:flex-row md:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.34em] text-cyan-100/60">
               portfolio

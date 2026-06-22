@@ -11,6 +11,7 @@ body,
   background: #0C0C0C;
   font-family: "Kanit", sans-serif;
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 * {
@@ -21,6 +22,10 @@ body,
 
 body {
   overflow-x: hidden;
+}
+
+section {
+  scroll-margin-top: 96px;
 }
 
 ::selection {
@@ -54,8 +59,30 @@ body {
 
 .hero-image-halo {
   background:
-    radial-gradient(circle at 50% 42%, rgba(69, 210, 255, 0.25), transparent 42%),
-    radial-gradient(circle at 50% 54%, rgba(117, 91, 255, 0.18), transparent 48%);
+    radial-gradient(circle at 50% 42%, rgba(69, 210, 255, 0.34), transparent 45%),
+    radial-gradient(circle at 50% 56%, rgba(117, 91, 255, 0.24), transparent 52%),
+    radial-gradient(circle at 50% 50%, rgba(215, 226, 234, 0.1), transparent 58%);
+}
+
+.hero-image-shell {
+  background:
+    radial-gradient(circle at 50% 22%, rgba(215, 226, 234, 0.1), transparent 34%),
+    linear-gradient(145deg, rgba(215, 226, 234, 0.07), rgba(215, 226, 234, 0.015));
+  box-shadow:
+    0 34px 100px rgba(0, 0, 0, 0.58),
+    0 0 70px rgba(75, 211, 255, 0.12);
+}
+
+@media (min-width: 1024px) {
+  .hero-layout-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(500px, 540px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-layout-grid {
+    grid-template-columns: minmax(0, 1fr) 560px;
+  }
 }
 
 .metal-panel {
@@ -97,6 +124,20 @@ body {
 
 .animate-blink {
   animation: blink 1s step-end infinite;
+}
+
+@keyframes cursor-fade-out {
+  0%,
+  60% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.typewriter-cursor-done {
+  animation: cursor-fade-out 1s ease forwards;
 }
 
 @media (max-width: 767px) {
