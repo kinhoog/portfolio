@@ -1,0 +1,30 @@
+import { ProjectCard } from "../components/ProjectCard";
+import { projects } from "../data/projects";
+
+export function ProjectsSection() {
+  return (
+    <section id="projetos" className="px-5 py-20 md:px-8 md:py-28">
+      <div className="mx-auto max-w-[1240px]">
+        <div className="mb-6 flex flex-col justify-between gap-5 md:mb-10 md:flex-row md:items-end">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.34em] text-cyan-100/60">
+              portfolio
+            </p>
+            <h2 className="hero-heading mt-4 text-6xl font-black uppercase leading-none tracking-normal md:text-8xl">
+              projetos
+            </h2>
+          </div>
+          <p className="max-w-xl text-base font-light leading-8 text-[#D7E2EA]/68 md:text-right">
+            primeira versão com três projetos principais e placeholders visuais para trocar por prints reais depois.
+          </p>
+        </div>
+
+        <div>
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

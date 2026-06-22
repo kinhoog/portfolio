@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: #0C0C0C;
+  font-family: "Kanit", sans-serif;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(73, 214, 255, 0.28);
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid #58D7FF;
+  outline-offset: 4px;
+}
+
+.hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-heading-size {
+  font-size: clamp(4.5rem, 10.35vw, 9.5rem);
+}
+
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(215, 226, 234, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(215, 226, 234, 0.055) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.78), transparent 78%);
+}
+
+.hero-image-halo {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(69, 210, 255, 0.25), transparent 42%),
+    radial-gradient(circle at 50% 54%, rgba(117, 91, 255, 0.18), transparent 48%);
+}
+
+.metal-panel {
+  background:
+    linear-gradient(145deg, rgba(215, 226, 234, 0.12), rgba(215, 226, 234, 0.035)),
+    linear-gradient(180deg, rgba(12, 12, 12, 0.92), rgba(12, 12, 12, 0.72));
+}
+
+.project-preview-grid {
+  background-image:
+    linear-gradient(rgba(215, 226, 234, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(215, 226, 234, 0.06) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+.animate-float-soft {
+  animation: float-soft 7s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@media (max-width: 767px) {
+  .hero-heading-size {
+    font-size: clamp(3.5rem, 17vw, 5.2rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  #root {
+    scroll-behavior: auto;
+  }
+
+  .animate-float-soft,
+  .animate-blink {
+    animation: none;
+  }
+}
