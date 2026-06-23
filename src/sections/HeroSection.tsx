@@ -69,7 +69,7 @@ export function HeroSection() {
         </FadeIn>
 
         <motion.div
-          className="relative mx-auto mt-5 flex w-full max-w-[560px] justify-center sm:mt-6 md:max-w-[680px] lg:max-w-[720px] xl:max-w-[760px]"
+          className="relative mx-auto mt-4 flex w-full max-w-[720px] justify-center sm:mt-5 md:max-w-[820px] lg:max-w-[900px] xl:max-w-[960px]"
           initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.97 }}
           animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.78, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
@@ -78,12 +78,12 @@ export function HeroSection() {
             aria-hidden="true"
             className="absolute inset-x-[9%] bottom-[8%] top-[2%] rounded-full bg-[radial-gradient(circle_at_50%_46%,rgba(69,210,255,0.28),transparent_52%),radial-gradient(circle_at_50%_58%,rgba(117,91,255,0.20),transparent_58%)] blur-3xl"
           />
-          <div className="relative z-10 w-full">
+          <div className="relative z-10 mx-auto w-full overflow-hidden bg-black shadow-[0_0_80px_rgba(75,211,255,0.10)]">
             {videoFailed || reduceMotion ? (
               <img
                 src={HERO_IMAGE_URL}
                 alt="Foto de Erick Rocha"
-                className="mx-auto max-h-[34svh] w-full object-contain drop-shadow-[0_28px_80px_rgba(75,211,255,0.18)] sm:max-h-[38svh] md:max-h-[40svh] xl:max-h-[39svh] 2xl:max-h-[43svh]"
+                className="mx-auto block max-h-[42svh] w-full bg-black object-contain drop-shadow-[0_28px_90px_rgba(75,211,255,0.18)] sm:max-h-[45svh] md:max-h-[48svh] lg:max-h-[50svh] xl:max-h-[52svh] 2xl:max-h-[56svh]"
                 loading="eager"
               />
             ) : (
@@ -95,7 +95,7 @@ export function HeroSection() {
                 preload="metadata"
                 onEnded={handleVideoEnded}
                 onError={() => setVideoFailed(true)}
-                className="mx-auto max-h-[34svh] w-full object-contain drop-shadow-[0_28px_80px_rgba(75,211,255,0.18)] sm:max-h-[38svh] md:max-h-[40svh] xl:max-h-[39svh] 2xl:max-h-[43svh]"
+                className="mx-auto block max-h-[42svh] w-full bg-black object-contain drop-shadow-[0_28px_90px_rgba(75,211,255,0.18)] sm:max-h-[45svh] md:max-h-[48svh] lg:max-h-[50svh] xl:max-h-[52svh] 2xl:max-h-[56svh]"
                 aria-label="Animação 3D de Erick Rocha"
               >
                 <source src={HERO_VIDEO_URL} type="video/mp4" />
