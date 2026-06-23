@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, GitBranch, MonitorUp, X } from "lucide-react";
-import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, Expand, GitBranch, MonitorUp, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "../data/projects";
 import { resolvePublicAssetUrl } from "../data/assets";
 import { ProjectButton } from "./ProjectButton";
@@ -43,6 +43,7 @@ function ModalPlaceholder({ project }: { project: Project }) {
 
 export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [expandedImage, setExpandedImage] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const images = useMemo(() => {
     if (project.galleryImages.length) {
@@ -56,6 +57,7 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
 
   useEffect(() => {
     setActiveIndex(0);
+    setExpandedImage(false);
   }, [project.id]);
 
   useEffect(() => {
@@ -65,17 +67,22 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        if (expandedImage) {
+          setExpandedImage(false);
+          return;
+        }
+
         onClose();
       }
     }
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown, true);
 
     return () => {
       document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown, true);
     };
-  }, [onClose]);
+  }, [expandedImage, onClose]);
 
   function showPreviousImage() {
     setActiveIndex((currentIndex) =>
@@ -107,24 +114,45 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
         aria-modal="true"
         aria-labelledby={`project-modal-title-${project.id}`}
         data-project-modal={project.id}
-        className="mx-auto grid max-w-[1180px] gap-6 rounded-[28px] border border-[#D7E2EA]/12 bg-[#101010]/96 p-4 shadow-2xl shadow-black/60 md:p-6 lg:grid-cols-[1.08fr_0.92fr]"
+        className="mx-auto grid max-w-[1320px] gap-6 rounded-[28px] border border-[#D7E2EA]/12 bg-[#101010]/96 p-4 shadow-2xl shadow-black/60 md:p-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,0.65fr)] xl:grid-cols-[minmax(0,1.45fr)_minmax(390px,0.62fr)]"
         initial={{ opacity: 0, y: 28, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 16, scale: 0.98 }}
         transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="min-w-0">
-          <div className="relative overflow-hidden rounded-2xl border border-[#D7E2EA]/10 bg-black/28">
+          <div className="relative overflow-hidden rounded-2xl border border-[#D7E2EA]/10 bg-[radial-gradient(circle_at_50%_20%,rgba(103,232,249,0.10),transparent_34%),#050505]">
             {activeImage ? (
-              <img
-                src={resolvePublicAssetUrl(activeImage.src)}
-                alt={activeImage.alt}
-                className="max-h-[64vh] min-h-[260px] w-full object-contain md:min-h-[420px]"
-                loading="lazy"
-              />
+              <button
+                type="button"
+                data-project-image-main={project.id}
+                className="block h-[300px] w-full bg-black/18 outline-none focus-visible:ring-2 focus-visible:ring-cyan-200 sm:h-[380px] lg:h-[500px] 2xl:h-[590px]"
+                onClick={() => setExpandedImage(true)}
+                aria-label={`Ampliar imagem: ${activeImage.caption}`}
+              >
+                <img
+                  src={resolvePublicAssetUrl(activeImage.src)}
+                  alt={activeImage.alt}
+                  className="h-full w-full object-contain"
+                  loading="lazy"
+                />
+              </button>
             ) : (
               <ModalPlaceholder project={project} />
             )}
+
+            {activeImage ? (
+              <button
+                type="button"
+                data-project-image-expand={project.id}
+                className="absolute right-3 top-3 inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-[#D7E2EA]/15 bg-[#0C0C0C]/70 px-3 text-xs font-semibold uppercase tracking-wide text-[#D7E2EA] backdrop-blur transition hover:bg-[#D7E2EA]/10 focus-visible:ring-2 focus-visible:ring-cyan-200"
+                onClick={() => setExpandedImage(true)}
+                aria-label={`Ampliar imagem: ${activeImage.caption}`}
+              >
+                <Expand className="h-4 w-4" aria-hidden="true" />
+                ampliar
+              </button>
+            ) : null}
 
             {hasMultipleImages ? (
               <div className="absolute inset-x-3 top-1/2 flex -translate-y-1/2 justify-between">
@@ -251,6 +279,56 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
           </div>
         </div>
       </motion.div>
+
+      <AnimatePresence>
+        {expandedImage && activeImage ? (
+          <motion.div
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-[#050505]/98 p-4 backdrop-blur-xl md:p-8"
+            data-project-image-expanded={project.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            onMouseDown={(event) => {
+              if (event.target === event.currentTarget) {
+                setExpandedImage(false);
+              }
+            }}
+          >
+            <motion.div
+              className="relative flex max-h-full w-full max-w-[1600px] flex-col gap-4"
+              initial={{ opacity: 0, y: 18, scale: 0.985 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.985 }}
+              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <button
+                type="button"
+                data-project-image-expanded-close={project.id}
+                className="absolute right-3 top-3 z-10 grid h-11 w-11 place-items-center rounded-full border border-[#D7E2EA]/20 bg-[#0C0C0C]/76 text-[#D7E2EA] backdrop-blur transition hover:bg-[#D7E2EA]/10 focus-visible:ring-2 focus-visible:ring-cyan-200"
+                onClick={() => setExpandedImage(false)}
+                aria-label="Fechar imagem ampliada"
+              >
+                <X className="h-5 w-5" aria-hidden="true" />
+              </button>
+
+              <div className="overflow-hidden rounded-2xl border border-[#D7E2EA]/12 bg-black shadow-2xl shadow-black/70">
+                <img
+                  src={resolvePublicAssetUrl(activeImage.src)}
+                  alt={activeImage.alt}
+                  className="max-h-[82vh] w-full object-contain"
+                />
+              </div>
+              <div className="max-w-5xl text-sm text-[#D7E2EA]/70">
+                <p className="font-medium text-[#D7E2EA]/84">{activeImage.caption}</p>
+                {activeImage.description ? (
+                  <p className="mt-1 leading-7">{activeImage.description}</p>
+                ) : null}
+              </div>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </motion.div>
   );
 }
