@@ -23,9 +23,9 @@ export function SkillsSection() {
               key={skill.number}
               initial={reduceMotion ? false : { opacity: 0, y: 24 }}
               whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-70px" }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{
-                duration: 0.58,
+                duration: 0.55,
                 ease: [0.22, 1, 0.36, 1],
                 delay: index * 0.05,
               }}

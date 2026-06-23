@@ -42,15 +42,28 @@ type TypewriterTextProps = {
 
 export function TypewriterText({ text, className }: TypewriterTextProps) {
   const { displayed, done } = useTypewriter(text);
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    setShowCursor(true);
+
+    if (!done) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => setShowCursor(false), 1000);
+
+    return () => window.clearTimeout(timer);
+  }, [done, text]);
 
   return (
-    <span className={className}>
+    <span className={className} data-typewriter>
       {displayed}
       <span
         aria-hidden="true"
         data-typewriter-cursor
         className={`ml-1 inline-block w-[0.08em] bg-current align-[-0.08em] ${
-          done ? "typewriter-cursor-done" : "animate-blink"
+          showCursor ? (done ? "typewriter-cursor-done" : "animate-blink") : "opacity-0"
         }`}
       >
         &nbsp;

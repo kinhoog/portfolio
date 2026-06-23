@@ -2,6 +2,8 @@ node_modules
 dist
 /PROMPT.md
 /eu.png
+/eu 2.png
+/projeto 1/
 .chrome-*
 visual-*.png
 vite-dev*.log

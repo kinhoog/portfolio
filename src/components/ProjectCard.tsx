@@ -1,9 +1,11 @@
-import { GitBranch, Sparkles } from "lucide-react";
+import type { KeyboardEvent } from "react";
+import { Images, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Project } from "../data/projects";
-import { ProjectButton } from "./ProjectButton";
+import { resolvePublicAssetUrl } from "../data/assets";
 
 type ProjectCardProps = {
+  onOpenProject: (project: Project) => void;
   project: Project;
 };
 
@@ -13,67 +15,126 @@ const accentClasses = {
   steel: "from-[#BBCCD7]/22 via-[#BBCCD7]/8 to-transparent",
 };
 
-export function ProjectCard({ project }: ProjectCardProps) {
+function ProjectPlaceholder({ project }: { project: Project }) {
+  return (
+    <div className="project-preview-grid relative flex h-full min-h-[250px] flex-col justify-between overflow-hidden rounded-xl border border-[#D7E2EA]/10 bg-black/24 p-4 md:min-h-[328px] md:p-5">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-[#D7E2EA]/55">
+            preview produto
+          </p>
+          <h3 className="mt-2 max-w-[18rem] text-2xl font-semibold leading-tight text-[#D7E2EA]">
+            {project.title}
+          </h3>
+        </div>
+        <Sparkles className="h-5 w-5 text-cyan-200/70" aria-hidden="true" />
+      </div>
+
+      <div className="grid grid-cols-[1fr_0.9fr] gap-3">
+        <div className="space-y-3 rounded-xl border border-[#D7E2EA]/10 bg-[#D7E2EA]/6 p-3">
+          <div className="flex gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-cyan-300/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-violet-300/60" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#D7E2EA]/45" />
+          </div>
+          <span className="block h-3 w-11/12 rounded-full bg-[#D7E2EA]/18" />
+          <span className="block h-3 w-8/12 rounded-full bg-[#D7E2EA]/12" />
+          <span className="block h-16 rounded-lg border border-cyan-300/10 bg-cyan-300/10" />
+        </div>
+
+        <div className="grid grid-cols-3 items-end gap-2 rounded-xl border border-[#D7E2EA]/10 bg-[#D7E2EA]/5 p-3">
+          <span className="h-16 rounded-t-md bg-cyan-300/30" />
+          <span className="h-28 rounded-t-md bg-violet-300/28" />
+          <span className="h-20 rounded-t-md bg-[#D7E2EA]/22" />
+        </div>
+      </div>
+
+      <div className="grid gap-2">
+        {[0, 1, 2].map((row) => (
+          <div key={row} className="grid grid-cols-[0.8fr_1.2fr_0.7fr] gap-2">
+            <span className="h-8 rounded-md bg-[#D7E2EA]/8" />
+            <span className="h-8 rounded-md bg-[#D7E2EA]/10" />
+            <span className="h-8 rounded-md bg-cyan-300/10" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function ProjectCard({ onOpenProject, project }: ProjectCardProps) {
   const reduceMotion = useReducedMotion();
+
+  function handleOpen() {
+    onOpenProject(project);
+  }
+
+  function handleKeyboardOpen(event: KeyboardEvent<HTMLElement>) {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    handleOpen();
+  }
 
   return (
     <motion.article
-      initial={reduceMotion ? false : { opacity: 0, y: 38, scale: 0.985 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 32, scale: 0.985 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-      className="grid gap-7 border-t border-[#D7E2EA]/10 py-10 lg:grid-cols-[0.72fr_1fr] lg:gap-10 lg:py-14"
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className="group grid cursor-pointer gap-7 border-t border-[#D7E2EA]/10 py-10 outline-none transition duration-200 focus-visible:ring-2 focus-visible:ring-cyan-200/70 lg:grid-cols-[0.72fr_1fr] lg:gap-10 lg:py-14"
+      role="button"
+      tabIndex={0}
+      data-project-card={project.id}
+      onClick={handleOpen}
+      onKeyDown={handleKeyboardOpen}
+      aria-label={`Abrir galeria do projeto ${project.title}`}
     >
-      <div className="relative min-h-[280px] overflow-hidden rounded-2xl border border-[#D7E2EA]/10 bg-[#101010] p-4 shadow-2xl shadow-black/35 md:min-h-[360px]">
+      <div
+        className={`relative self-start overflow-hidden rounded-2xl border border-[#D7E2EA]/10 bg-[#101010] shadow-2xl shadow-black/35 transition duration-300 group-hover:border-cyan-200/22 ${
+          project.coverImage ? "p-3 md:p-4" : "min-h-[280px] p-4 md:min-h-[360px]"
+        }`}
+      >
         <div
           aria-hidden="true"
           className={`absolute inset-0 bg-gradient-to-br ${accentClasses[project.accent]}`}
         />
-        <div className="project-preview-grid relative flex h-full min-h-[250px] flex-col justify-between overflow-hidden rounded-xl border border-[#D7E2EA]/10 bg-black/24 p-4 md:min-h-[328px] md:p-5">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-[#D7E2EA]/55">
-                preview produto
-              </p>
-              <h3 className="mt-2 max-w-[18rem] text-2xl font-semibold leading-tight text-[#D7E2EA]">
-                {project.name}
-              </h3>
-            </div>
-            <Sparkles className="h-5 w-5 text-cyan-200/70" aria-hidden="true" />
-          </div>
 
-          <div className="grid grid-cols-[1fr_0.9fr] gap-3">
-            <div className="space-y-3 rounded-xl border border-[#D7E2EA]/10 bg-[#D7E2EA]/6 p-3">
-              <div className="flex gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-cyan-300/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-violet-300/60" />
-                <span className="h-2.5 w-2.5 rounded-full bg-[#D7E2EA]/45" />
-              </div>
-              <span className="block h-3 w-11/12 rounded-full bg-[#D7E2EA]/18" />
-              <span className="block h-3 w-8/12 rounded-full bg-[#D7E2EA]/12" />
-              <span className="block h-16 rounded-lg border border-cyan-300/10 bg-cyan-300/10" />
-            </div>
-
-            <div className="grid grid-cols-3 items-end gap-2 rounded-xl border border-[#D7E2EA]/10 bg-[#D7E2EA]/5 p-3">
-              <span className="h-16 rounded-t-md bg-cyan-300/30" />
-              <span className="h-28 rounded-t-md bg-violet-300/28" />
-              <span className="h-20 rounded-t-md bg-[#D7E2EA]/22" />
-            </div>
-          </div>
-
-          <div className="grid gap-2">
-            {[0, 1, 2].map((row) => (
-              <div
-                key={row}
-                className="grid grid-cols-[0.8fr_1.2fr_0.7fr] gap-2"
-              >
-                <span className="h-8 rounded-md bg-[#D7E2EA]/8" />
-                <span className="h-8 rounded-md bg-[#D7E2EA]/10" />
-                <span className="h-8 rounded-md bg-cyan-300/10" />
-              </div>
-            ))}
-          </div>
-        </div>
+        {project.coverImage ? (
+          <button
+            type="button"
+            data-project-cover={project.id}
+            className="relative block aspect-video w-full overflow-hidden rounded-xl border border-[#D7E2EA]/10 bg-black/30 text-left outline-none transition duration-300 focus-visible:ring-2 focus-visible:ring-cyan-200/70"
+            onClick={(event) => {
+              event.stopPropagation();
+              handleOpen();
+            }}
+            aria-label={`Abrir imagens de ${project.title}`}
+          >
+            <img
+              src={resolvePublicAssetUrl(project.coverImage.src)}
+              alt={project.coverImage.alt}
+              className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]"
+              loading="lazy"
+            />
+            <span className="absolute inset-0 bg-gradient-to-t from-[#0C0C0C]/78 via-transparent to-[#0C0C0C]/16" />
+            <span className="absolute bottom-4 left-4 right-4 flex items-center justify-between gap-4">
+              <span>
+                <span className="block text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-cyan-100/70">
+                  capa real
+                </span>
+                <span className="mt-1 block text-2xl font-semibold leading-tight text-[#D7E2EA]">
+                  {project.title}
+                </span>
+              </span>
+              <Images className="h-5 w-5 shrink-0 text-cyan-100/80" aria-hidden="true" />
+            </span>
+          </button>
+        ) : (
+          <ProjectPlaceholder project={project} />
+        )}
       </div>
 
       <div className="flex flex-col justify-between gap-7">
@@ -88,7 +149,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
 
           <h3 className="mt-5 text-3xl font-semibold leading-tight text-[#D7E2EA] md:text-5xl">
-            {project.name}
+            {project.title}
           </h3>
           <p className="mt-5 max-w-3xl text-base font-light leading-8 text-[#D7E2EA]/78 md:text-lg">
             {project.description}
@@ -125,18 +186,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </ul>
         </div>
 
-        <div className="flex flex-wrap gap-3">
-          {project.demoUrl ? (
-            <ProjectButton href={project.demoUrl} target="_blank" rel="noreferrer" variant="primary">
-              ver projeto
-            </ProjectButton>
-          ) : null}
-          {project.repoUrl ? (
-            <ProjectButton href={project.repoUrl} target="_blank" rel="noreferrer">
-              <GitBranch className="h-4 w-4" aria-hidden="true" />
-              ver repositório
-            </ProjectButton>
-          ) : null}
+        <div>
+          <button
+            type="button"
+            data-project-open={project.id}
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-cyan-300/50 bg-cyan-300/12 px-4 text-xs font-semibold uppercase tracking-wide text-cyan-100 transition duration-200 hover:bg-cyan-300/20 focus-visible:ring-2 focus-visible:ring-cyan-200/70"
+            onClick={(event) => {
+              event.stopPropagation();
+              handleOpen();
+            }}
+          >
+            <Images className="h-4 w-4" aria-hidden="true" />
+            ver projeto
+          </button>
         </div>
       </div>
     </motion.article>

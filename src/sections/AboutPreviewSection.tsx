@@ -1,5 +1,6 @@
 import { FadeIn } from "../components/FadeIn";
-import { profile } from "../data/profile";
+import { resolvePublicAssetUrl } from "../data/assets";
+import { ABOUT_IMAGE_URL, profile } from "../data/profile";
 
 export function AboutPreviewSection() {
   return (
@@ -26,6 +27,21 @@ export function AboutPreviewSection() {
             <p className="max-w-3xl text-lg font-light leading-9 text-[#D7E2EA]/68 md:text-xl">
               {profile.aboutSecond}
             </p>
+          </FadeIn>
+
+          <FadeIn delay={0.06} duration={0.7} scale={0.96} y={40}>
+            <div className="relative mt-12 max-w-[640px] overflow-hidden rounded-[32px] border border-white/10 bg-gradient-to-br from-[#D7E2EA]/10 via-[#D7E2EA]/5 to-cyan-300/5 p-2 shadow-[0_28px_90px_rgba(0,0,0,0.42),0_0_55px_rgba(75,211,255,0.08)] lg:ml-8">
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-10 top-0 h-24 rounded-full bg-cyan-200/10 blur-3xl"
+              />
+              <img
+                src={resolvePublicAssetUrl(ABOUT_IMAGE_URL)}
+                alt="Foto de Erick Rocha em contexto pessoal"
+                className="relative aspect-[4/5] w-full rounded-[24px] object-cover"
+                loading="lazy"
+              />
+            </div>
           </FadeIn>
         </div>
       </div>

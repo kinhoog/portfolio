@@ -1,4 +1,5 @@
 export const HERO_IMAGE_URL = `${import.meta.env.BASE_URL}assets/eu.png`;
+export const ABOUT_IMAGE_URL = "/assets/about/eu-2.png";
 
 export const profile = {
   name: "erick rocha",

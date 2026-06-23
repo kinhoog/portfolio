@@ -1,22 +1,29 @@
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
 export type Project = {
+  id: string;
   number: string;
-  slug: string;
-  name: string;
+  title: string;
   category: string;
   description: string;
   techStack: string[];
   highlights: string[];
   repoUrl?: string;
   demoUrl?: string;
-  imageSlots: string[];
+  coverImage?: ProjectImage;
+  galleryImages?: ProjectImage[];
   accent: "cyan" | "violet" | "steel";
 };
 
 export const projects: Project[] = [
   {
+    id: "sugestoes",
     number: "01",
-    slug: "sugestoes",
-    name: "sistema de sugestões internas",
+    title: "sistema de sugestões internas",
     category: "sistema interno",
     description:
       "mvp funcional para registro de demandas de automação interna, com login corporativo, protocolo automático, painel administrativo, workflow, resposta ao colaborador, minhas demandas e exportação csv.",
@@ -43,17 +50,24 @@ export const projects: Project[] = [
     ],
     repoUrl: "https://github.com/kinhoog/sugestoes",
     demoUrl: "https://kinhoog.github.io/sugestoes/",
-    imageSlots: [
-      "/assets/projects/sugestoes-01.png",
-      "/assets/projects/sugestoes-02.png",
-      "/assets/projects/sugestoes-03.png",
+    coverImage: {
+      src: "/assets/projects/sugestoes/sugestoes-capa.png",
+      alt: "Tela inicial do Sistema de Sugestões Internas",
+      caption: "Tela inicial do sistema",
+    },
+    galleryImages: [
+      {
+        src: "/assets/projects/sugestoes/sugestoes-capa.png",
+        alt: "Tela inicial do Sistema de Sugestões Internas",
+        caption: "Tela inicial do sistema",
+      },
     ],
     accent: "cyan",
   },
   {
+    id: "esocial-ia",
     number: "02",
-    slug: "esocial-ia",
-    name: "gestão esocial com ia local aplicada",
+    title: "gestão esocial com ia local aplicada",
     category: "ia aplicada / operação esocial",
     description:
       "estrutura interna voltada para apoio em rotinas do esocial, dúvidas operacionais, análise contextual e uso de modelo local de linguagem para ganho de produtividade e padronização operacional.",
@@ -73,17 +87,13 @@ export const projects: Project[] = [
       "base de conhecimento contextual",
       "redução de tempo em consultas repetitivas",
     ],
-    imageSlots: [
-      "/assets/projects/esocial-ia-01.png",
-      "/assets/projects/esocial-ia-02.png",
-      "/assets/projects/esocial-ia-03.png",
-    ],
+    galleryImages: [],
     accent: "violet",
   },
   {
+    id: "dashboard-esocial",
     number: "03",
-    slug: "dashboard-esocial",
-    name: "dashboard operacional esocial",
+    title: "dashboard operacional esocial",
     category: "dashboard / gestão operacional",
     description:
       "dashboard interno para acompanhar status de eventos esocial, erros, pendências, procurações, xmls e indicadores por competência.",
@@ -102,11 +112,7 @@ export const projects: Project[] = [
       "apoio gerencial",
       "acompanhamento de erros e pendências",
     ],
-    imageSlots: [
-      "/assets/projects/dashboard-esocial-01.png",
-      "/assets/projects/dashboard-esocial-02.png",
-      "/assets/projects/dashboard-esocial-03.png",
-    ],
+    galleryImages: [],
     accent: "steel",
   },
 ];
