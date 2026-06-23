@@ -23,9 +23,9 @@ export function AboutPreviewSection() {
           </FadeIn>
 
           <FadeIn delay={0.16}>
-            <p className="mx-auto max-w-4xl text-lg font-light leading-9 text-[#D7E2EA]/78 md:text-xl">
-              {profile.about}
-            </p>
+            <p className="mx-auto max-w-5xl whitespace-pre-line text-lg font-light leading-9 text-[#D7E2EA]/78 md:text-xl">
+  {profile.about}
+</p>
           </FadeIn>
 
           <FadeIn delay={0.22}>
