@@ -14,7 +14,10 @@ export function AboutPreviewSection() {
 
         <div className="mt-8 flex w-full flex-col items-center space-y-7">
           <FadeIn delay={0.08}>
-           <h2 className="mx-auto max-w-5xl text-3xl font-semibold leading-tight text-[#D7E2EA] md:text-5xl lg:text-[3.6rem]">
+           <h2 className="mx-auto max-w-6xl text-3xl font-semibold leading-tight text-[#D7E2EA] md:text-5xl lg:text-[3.35rem]">
+  <span className="block">tecnologia que resolve de verdade</span>
+  <span className="block">sistemas, automações e ia no dia a dia da operação.</span>
+</h2>
   tecnologia que resolve de verdade — sistemas, automações e ia no dia a dia da operação.
             </h2>
           </FadeIn>
