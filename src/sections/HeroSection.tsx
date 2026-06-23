@@ -5,7 +5,7 @@ import { FadeIn } from "../components/FadeIn";
 import { TypewriterText } from "../components/TypewriterText";
 import { HERO_IMAGE_URL, profile } from "../data/profile";
 
-const HERO_VIDEO_URL = `${import.meta.env.BASE_URL}assets/hero/animacao-erick.mp4`;
+const HERO_VIDEO_URL = `${import.meta.env.BASE_URL}assets/hero/animacao-erick-v2.mp4`;
 
 export function HeroSection() {
   const reduceMotion = useReducedMotion();
