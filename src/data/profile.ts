@@ -9,9 +9,9 @@ export const profile = {
   description:
     "desenvolvo sistemas internos, automações e soluções com ia aplicada para transformar rotinas operacionais em processos mais inteligentes, organizados e escaláveis.",
   about:
-    "sou o erick, estudante de gestão de tecnologia da informação e focado em desenvolvimento de sistemas internos, automações e aplicação prática de ia em rotinas operacionais.",
+    "sou erick, estudo gestão de ti e tenho formação prática em programação, modelagem de software e redes.",
   aboutSecond:
-    "meu foco é transformar problemas reais do dia a dia em soluções simples, funcionais e úteis para operação, gestão e melhoria de processos.",
+    "o que me move é pegar um problema real da operação e transformar em algo simples que funciona. sistemas internos, automações, ia aplicada na rotina, sempre com o objetivo de deixar os dados organizados, os fluxos fazendo sentido e as ferramentas sendo usadas de verdade pela equipe.",
   githubUrl: "https://github.com/kinhoog",
   linkedinUrl: "",
   email: "erickdarochaalves@gmail.com",

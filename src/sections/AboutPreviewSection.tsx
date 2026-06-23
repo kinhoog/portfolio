@@ -14,19 +14,19 @@ export function AboutPreviewSection() {
 
         <div className="mt-8 flex w-full flex-col items-center space-y-7">
           <FadeIn delay={0.08}>
-            <h2 className="mx-auto max-w-4xl text-4xl font-semibold leading-tight text-[#D7E2EA] md:text-6xl">
-              tecnologia prática para organizar operação, dados e fluxos internos.
+           <h2 className="mx-auto max-w-5xl text-3xl font-semibold leading-tight text-[#D7E2EA] md:text-5xl lg:text-[3.6rem]">
+  tecnologia que resolve de verdade — sistemas, automações e ia no dia a dia da operação.
             </h2>
           </FadeIn>
 
           <FadeIn delay={0.16}>
-            <p className="mx-auto max-w-3xl text-lg font-light leading-9 text-[#D7E2EA]/78 md:text-xl">
+            <p className="mx-auto max-w-4xl text-lg font-light leading-9 text-[#D7E2EA]/78 md:text-xl">
               {profile.about}
             </p>
           </FadeIn>
 
           <FadeIn delay={0.22}>
-            <p className="mx-auto max-w-3xl text-lg font-light leading-9 text-[#D7E2EA]/68 md:text-xl">
+            <p className="mx-auto max-w-4xl text-lg font-light leading-9 text-[#D7E2EA]/68 md:text-xl">
               {profile.aboutSecond}
             </p>
           </FadeIn>
