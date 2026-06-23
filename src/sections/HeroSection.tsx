@@ -69,46 +69,40 @@ export function HeroSection() {
         </FadeIn>
 
         <motion.div
-  className="relative mx-auto mt-4 flex w-full max-w-[760px] justify-center sm:mt-5 md:max-w-[880px] lg:max-w-[980px] xl:max-w-[1040px]"
-  initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.97 }}
-  animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
-  transition={{ duration: 0.78, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
->
-  <div
-    aria-hidden="true"
-    className="absolute inset-x-[-24vw] inset-y-[-52px] bg-[radial-gradient(circle_at_center,rgba(0,0,0,1)_0%,rgba(0,0,0,1)_44%,rgba(0,0,0,0.86)_64%,rgba(0,0,0,0.42)_78%,rgba(0,0,0,0)_100%)]"
-  />
-
-  <div
-    aria-hidden="true"
-    className="absolute inset-x-[4%] bottom-[6%] top-[0%] rounded-full bg-[radial-gradient(circle_at_50%_46%,rgba(69,210,255,0.20),transparent_54%),radial-gradient(circle_at_50%_58%,rgba(117,91,255,0.14),transparent_62%)] blur-3xl"
-  />
-
-  <div className="relative z-10 mx-auto w-full overflow-hidden bg-black [mask-image:linear-gradient(to_right,transparent_0%,black_9%,black_91%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_9%,black_91%,transparent_100%)]">
-    {videoFailed || reduceMotion ? (
-      <img
-        src={HERO_IMAGE_URL}
-        alt="Foto de Erick Rocha"
-        className="mx-auto block max-h-[44svh] w-full bg-black object-contain drop-shadow-[0_28px_90px_rgba(75,211,255,0.16)] sm:max-h-[47svh] md:max-h-[50svh] lg:max-h-[52svh] xl:max-h-[54svh] 2xl:max-h-[58svh]"
-        loading="eager"
-      />
-    ) : (
-      <video
-        ref={videoRef}
-        muted
-        playsInline
-        autoPlay
-        preload="metadata"
-        onEnded={handleVideoEnded}
-        onError={() => setVideoFailed(true)}
-        className="mx-auto block max-h-[44svh] w-full bg-black object-contain drop-shadow-[0_28px_90px_rgba(75,211,255,0.16)] sm:max-h-[47svh] md:max-h-[50svh] lg:max-h-[52svh] xl:max-h-[54svh] 2xl:max-h-[58svh]"
-        aria-label="Animação 3D de Erick Rocha"
-      >
-        <source src={HERO_VIDEO_URL} type="video/mp4" />
-      </video>
-    )}
-  </div>
-</motion.div>
+          className="relative mx-auto mt-4 flex w-full max-w-[720px] justify-center sm:mt-5 md:max-w-[820px] lg:max-w-[900px] xl:max-w-[960px]"
+          initial={reduceMotion ? false : { opacity: 0, y: 24, scale: 0.97 }}
+          animate={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.78, ease: [0.22, 1, 0.36, 1], delay: 0.14 }}
+        >
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-[9%] bottom-[8%] top-[2%] rounded-full bg-[radial-gradient(circle_at_50%_46%,rgba(69,210,255,0.28),transparent_52%),radial-gradient(circle_at_50%_58%,rgba(117,91,255,0.20),transparent_58%)] blur-3xl"
+          />
+          <div className="relative z-10 mx-auto w-full overflow-hidden bg-black shadow-[0_0_80px_rgba(75,211,255,0.10)]">
+            {videoFailed || reduceMotion ? (
+              <img
+                src={HERO_IMAGE_URL}
+                alt="Foto de Erick Rocha"
+                className="mx-auto block max-h-[42svh] w-full bg-black object-contain drop-shadow-[0_28px_90px_rgba(75,211,255,0.18)] sm:max-h-[45svh] md:max-h-[48svh] lg:max-h-[50svh] xl:max-h-[52svh] 2xl:max-h-[56svh]"
+                loading="eager"
+              />
+            ) : (
+              <video
+                ref={videoRef}
+                muted
+                playsInline
+                autoPlay
+                preload="metadata"
+                onEnded={handleVideoEnded}
+                onError={() => setVideoFailed(true)}
+                className="mx-auto block max-h-[42svh] w-full bg-black object-contain drop-shadow-[0_28px_90px_rgba(75,211,255,0.18)] sm:max-h-[45svh] md:max-h-[48svh] lg:max-h-[50svh] xl:max-h-[52svh] 2xl:max-h-[56svh]"
+                aria-label="Animação 3D de Erick Rocha"
+              >
+                <source src={HERO_VIDEO_URL} type="video/mp4" />
+              </video>
+            )}
+          </div>
+        </motion.div>
 
         <FadeIn delay={0.22}>
           <p className="mt-4 min-h-[2.25rem] max-w-full text-center text-sm font-medium uppercase tracking-[0.18em] text-[#D7E2EA] sm:text-lg md:mt-5 md:text-2xl">
