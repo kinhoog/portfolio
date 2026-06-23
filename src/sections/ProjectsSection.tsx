@@ -25,7 +25,7 @@ export function ProjectsSection() {
             </h2>
           </div>
           <p className="max-w-xl text-base font-light leading-8 text-[#D7E2EA]/68 md:text-right">
-            primeira versão com três projetos principais e placeholders visuais para trocar por prints reais depois.
+            galerias reais dos sistemas, com prints de telas públicas, fluxos internos, painéis e relatórios operacionais.
           </p>
         </FadeIn>
 

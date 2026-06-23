@@ -45,7 +45,7 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
   const [activeIndex, setActiveIndex] = useState(0);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const images = useMemo(() => {
-    if (project.galleryImages?.length) {
+    if (project.galleryImages.length) {
       return project.galleryImages;
     }
 
@@ -130,6 +130,7 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
               <div className="absolute inset-x-3 top-1/2 flex -translate-y-1/2 justify-between">
                 <button
                   type="button"
+                  data-project-gallery-prev={project.id}
                   className="grid h-10 w-10 place-items-center rounded-full border border-[#D7E2EA]/15 bg-[#0C0C0C]/70 text-[#D7E2EA] backdrop-blur transition hover:bg-[#D7E2EA]/10 focus-visible:ring-2 focus-visible:ring-cyan-200"
                   onClick={showPreviousImage}
                   aria-label="Imagem anterior"
@@ -138,6 +139,7 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
                 </button>
                 <button
                   type="button"
+                  data-project-gallery-next={project.id}
                   className="grid h-10 w-10 place-items-center rounded-full border border-[#D7E2EA]/15 bg-[#0C0C0C]/70 text-[#D7E2EA] backdrop-blur transition hover:bg-[#D7E2EA]/10 focus-visible:ring-2 focus-visible:ring-cyan-200"
                   onClick={showNextImage}
                   aria-label="Próxima imagem"
@@ -148,13 +150,29 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
             ) : null}
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-[#D7E2EA]/62">
-            <p>{activeImage?.caption ?? "Preview visual provisório"}</p>
-            {hasMultipleImages ? (
-              <p className="rounded-full border border-[#D7E2EA]/10 px-3 py-1 text-xs font-medium uppercase tracking-wide">
-                {activeIndex + 1} / {images.length}
+          <div className="mt-4 flex flex-wrap items-start justify-between gap-3 text-sm text-[#D7E2EA]/62">
+            <div className="max-w-3xl">
+              <p
+                className="font-medium text-[#D7E2EA]/78"
+                data-project-gallery-caption={project.id}
+              >
+                {activeImage?.caption ?? "Preview visual"}
               </p>
-            ) : null}
+              {activeImage?.description ? (
+                <p
+                  className="mt-2 leading-7 text-[#D7E2EA]/60"
+                  data-project-gallery-description={project.id}
+                >
+                  {activeImage.description}
+                </p>
+              ) : null}
+            </div>
+            <p
+              className="rounded-full border border-[#D7E2EA]/10 px-3 py-1 text-xs font-medium uppercase tracking-wide"
+              data-project-gallery-counter={project.id}
+            >
+              {activeIndex + 1} / {Math.max(images.length, 1)}
+            </p>
           </div>
         </div>
 
@@ -162,7 +180,7 @@ export function ProjectGalleryModal({ onClose, project }: ProjectGalleryModalPro
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-100/60">
-                {project.category}
+                {project.number} / {project.category}
               </p>
               <h2
                 id={`project-modal-title-${project.id}`}

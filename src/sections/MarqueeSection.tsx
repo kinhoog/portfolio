@@ -9,7 +9,7 @@ export function MarqueeSection() {
           previews
         </p>
         <p className="hidden max-w-sm text-right text-sm font-light text-[#D7E2EA]/55 md:block">
-          áreas e projetos em estrutura visual provisória para substituir por prints reais depois.
+          recortes reais dos projetos em sistemas internos, automações, dashboards e ia aplicada.
         </p>
       </div>
       <div className="space-y-1">

@@ -9,10 +9,10 @@ type ProjectCardProps = {
   project: Project;
 };
 
-const accentClasses = {
-  cyan: "from-cyan-300/24 via-cyan-300/8 to-transparent",
-  violet: "from-violet-300/24 via-violet-300/8 to-transparent",
-  steel: "from-[#BBCCD7]/22 via-[#BBCCD7]/8 to-transparent",
+const accentClassesByProjectId: Record<string, string> = {
+  sugestoes: "from-cyan-300/24 via-cyan-300/8 to-transparent",
+  "esocial-ia": "from-violet-300/24 via-violet-300/8 to-transparent",
+  "dashboard-esocial": "from-[#BBCCD7]/22 via-[#BBCCD7]/8 to-transparent",
 };
 
 function ProjectPlaceholder({ project }: { project: Project }) {
@@ -64,6 +64,8 @@ function ProjectPlaceholder({ project }: { project: Project }) {
 
 export function ProjectCard({ onOpenProject, project }: ProjectCardProps) {
   const reduceMotion = useReducedMotion();
+  const accentClass =
+    accentClassesByProjectId[project.id] ?? "from-cyan-300/20 via-cyan-300/8 to-transparent";
 
   function handleOpen() {
     onOpenProject(project);
@@ -99,7 +101,7 @@ export function ProjectCard({ onOpenProject, project }: ProjectCardProps) {
       >
         <div
           aria-hidden="true"
-          className={`absolute inset-0 bg-gradient-to-br ${accentClasses[project.accent]}`}
+          className={`absolute inset-0 bg-gradient-to-br ${accentClass}`}
         />
 
         {project.coverImage ? (
