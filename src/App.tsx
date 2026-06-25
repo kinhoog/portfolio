@@ -1,4 +1,5 @@
 import { AboutPreviewSection } from "./sections/AboutPreviewSection";
+import { CertificatesSection } from "./sections/CertificatesSection";
 import { ContactSection } from "./sections/ContactSection";
 import { Header } from "./sections/Header";
 import { HeroSection } from "./sections/HeroSection";
@@ -16,6 +17,7 @@ export default function App() {
         <AboutPreviewSection />
         <SkillsSection />
         <ProjectsSection />
+        <CertificatesSection />
         <ContactSection />
       </main>
     </div>

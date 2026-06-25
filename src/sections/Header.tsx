@@ -4,6 +4,7 @@ const navItems = [
   { label: "sobre", href: "#sobre" },
   { label: "skills", href: "#skills" },
   { label: "projetos", href: "#projetos" },
+  { label: "certificados", href: "#certificados" },
   { label: "contato", href: "#contato" },
 ];
 
@@ -19,7 +20,7 @@ export function Header() {
           {profile.shortName}
         </a>
 
-        <nav className="flex items-center gap-3 text-[0.64rem] font-medium uppercase tracking-[0.22em] text-[#D7E2EA] sm:gap-7 md:text-xs">
+        <nav className="flex items-center gap-2 text-[0.54rem] font-medium uppercase tracking-[0.15em] text-[#D7E2EA] sm:gap-5 sm:text-[0.64rem] sm:tracking-[0.22em] md:gap-7 md:text-xs">
           {navItems.map((item) => (
             <a
               key={item.href}
